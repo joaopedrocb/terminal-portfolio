@@ -1,9 +1,4 @@
 @font-face {
-  font-family: pixelFont;
-  src: url('./assets/fonts/pixel-font.ttf');
-}
-
-@font-face {
   font-family: pressStartFont;
   src: url('./assets/fonts/press-start-font.ttf');
 }
