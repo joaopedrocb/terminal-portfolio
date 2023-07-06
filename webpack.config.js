@@ -1,210 +1,181 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageminPlugin = require('imagemin-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const DotenvFlow = require('dotenv-flow-webpack');
-const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 
-const environment = process.env.NODE_ENV;
-const isDevelopment =
-  environment === 'development' || environment === 'staging';
-const isTesting = environment === 'testing';
-const webpackMode = process.env.WEBPACK_MODE || environment || 'development';
+module.exports = () => {
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const mode = isDevelopment ? 'development' : 'production';
+  const output = {
+    filename: 'index.js',
+    path: path.join(__dirname, 'dist'),
+    library: 'kosmos.web.components',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+  };
+  const entry = './src/index.ts';
 
-module.exports = {
-  mode: webpackMode,
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'js/[name].[hash].js',
-    publicPath: '/',
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json', '.jsx'],
-    fallback: {
-      crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify'),
+  return {
+    mode,
+    performance: {
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
     },
-    alias: {
-      react: path.resolve('./node_modules/react'),
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          parallel: true,
+        }),
+      ],
+      splitChunks: {
+        chunks: 'all',
+      },
     },
-  },
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        parallel: true,
-      }),
-    ],
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
-  module: {
-    rules: [
+    entry,
+    devtool: 'source-map',
+    output,
+    externals: [
+      nodeExternals(),
       {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-      {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader',
-        },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.module\.s[ac]ss$/,
-        use: [
-          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
-              camelCase: true,
-              sourceMap: isDevelopment || isTesting,
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment || isTesting,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.s[ac]ss$/,
-        exclude: /\.module.(s[ac]ss)$/,
-        use: [
-          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment || isTesting,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: [
-                require('autoprefixer')({}),
-                require('cssnano')({
-                  discardComments: {
-                    removeAll: true,
-                  },
-                }),
-              ],
-              minimize: !isDevelopment,
-            },
-          },
-          'resolve-url-loader',
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.(woff2?|ttf|otf|eot)$/,
-        exclude: /node_modules/,
-        loader: 'file-loader',
-        options: {
-          outputPath: './css',
-          name: isDevelopment
-            ? './fonts/[name].[hash].[ext]'
-            : './fonts/[name].[ext]',
-        },
-      },
-      {
-        test: /\.(jpe?g|gif|png|svg)$/,
-        exclude: /node_modules/,
-        loader: 'file-loader',
-        options: {
-          name: isDevelopment
-            ? './images/[name].[hash].[ext]'
-            : './images/[name].[ext]',
-        },
-      },
-      {
-        test: /\.(jpe?g|gif|png|svg)$/,
-        exclude: /src/,
-        loader: 'file-loader',
-        options: {
-          name: isDevelopment
-            ? './images/[name].[hash].external.[ext]'
-            : './images/[name].external.[ext]',
+        'styled-components': {
+          commonjs: 'styled-components',
+          commonjs2: 'styled-components',
+          amd: 'styled-components',
         },
       },
     ],
-  },
-  devServer: {
-    historyApiFallback: true,
-    port: 3000,
-  },
-  plugins: [
-    new DotenvFlow(),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/index.template.html',
-      filename: './index.html',
-      hash: true,
-    }),
-    new MiniCssExtractPlugin({
-      filename: isDevelopment ? './css/[name].css' : './css/[name].[hash].css',
-      chunkFilename: isDevelopment ? './css/[id].css' : './css/[id].[hash].css',
-    }),
-    new ImageminPlugin({
-      bail: false,
-      cache: true,
-      imageminOptions: {
-        plugins: [
-          ['gifsicle', { interlaced: true }],
-          ['jpegtran', { progressive: true }],
-          ['optipng', { optimizationLevel: 5 }],
-          [
-            'svgo',
+    module: {
+      rules: [
+        {
+          test: /\.(ts|tsx)?$/,
+          include: path.resolve(__dirname, 'src'),
+          exclude: /node_modules/,
+          use: [
             {
-              plugins: [
-                {
-                  name: 'preset-default',
-                  params: {
-                    overrides: {
-                      removeViewBox: false,
-                      removeUselessDefs: false,
-                    },
-                  },
-                },
-              ],
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true,
+              },
             },
           ],
-        ],
-      },
-    }),
-    new FaviconsWebpackPlugin({
-      logo: './src/assets/images/favicon.png',
-      outputPath: './images/favicon',
-      prefix: 'images/favicon/',
-      favicons: {
-        icons: {
-          android: false,
-          appleIcon: false,
-          appleStartup: false,
-          coast: false,
-          yandex: false,
-          windows: false,
-          firefox: false,
         },
+        {
+          test: /\.(tsx|ts)$/,
+          exclude: /node_modules/,
+          loader: 'ts-loader',
+        },
+        {
+          test: /\.(gif|jpe?g|png|svg)$/,
+          use: {
+            loader: 'url-loader',
+            options: {
+              name: '[name].[ext]',
+              esModule: false,
+            },
+          },
+        },
+        {
+          test: /\.(png|jp(e*)g|svg|gif)$/,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.module\.s[ac]ss$/,
+          use: [
+            isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+                camelCase: true,
+                sourceMap: isDevelopment,
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: isDevelopment,
+              },
+            },
+          ],
+        },
+        {
+          test: /\.s[ac]ss$/,
+          exclude: /\.module.(s[ac]ss)$/,
+          use: [
+            isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: isDevelopment,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: [
+                  require('autoprefixer')({}),
+                  require('cssnano')({
+                    discardComments: {
+                      removeAll: true,
+                    },
+                  }),
+                ],
+                minimize: !isDevelopment,
+              },
+            },
+            'resolve-url-loader',
+            'sass-loader',
+          ],
+        },
+      ],
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: isDevelopment
+          ? './css/[name].css'
+          : './css/[name].[hash].css',
+        chunkFilename: isDevelopment
+          ? './css/[id].css'
+          : './css/[id].[hash].css',
+      }),
+      new ImageminPlugin({
+        bail: false,
+        cache: true,
+        imageminOptions: {
+          plugins: [
+            ['gifsicle', { interlaced: true }],
+            ['jpegtran', { progressive: true }],
+            ['optipng', { optimizationLevel: 5 }],
+            [
+              'svgo',
+              {
+                plugins: [
+                  {
+                    removeViewBox: false,
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      }),
+    ],
+    resolve: {
+      modules: [
+        path.resolve(__dirname, 'public/src'),
+        'node_modules',
+        path.resolve('node_modules'),
+      ],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      alias: {
+        react: path.resolve('./node_modules/react'),
+        reactDom: path.resolve('./node_modules/react-dom'),
       },
-    }),
-  ],
+    },
+  };
 };

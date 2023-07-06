@@ -1,0 +1,125 @@
+{
+    "env": {
+      "browser": true,
+      "es6": true,
+      "jest": true
+    },
+    "extends": [
+      "plugin:react-hooks/recommended",
+      "plugin:react/recommended",
+      "plugin:import/typescript",
+      "airbnb",
+      "prettier",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "@typescript-eslint",
+      "react-hooks",
+      "import",
+      "prettier",
+      "jest"
+    ],
+    "rules": {
+    "global-require": "off",
+      "no-alert": "off",
+      "react/jsx-no-bind": [
+        "off",
+        {
+          "ignoreDOMComponents": true,
+          "ignoreRefs": true,
+          "allowArrowFunctions": true,
+          "allowFunctions": true,
+          "allowBind": true
+        }
+      ],
+      "import/order": [
+        "off",
+        {
+          "pathGroups": [
+            {
+              "pattern": "~/**",
+              "group": "external"
+            }
+          ]
+        }
+      ],
+      "react/jsx-no-useless-fragment": "off",
+      "react/function-component-definition": "off",
+      "react/jsx-props-no-spreading": "off",
+      "no-shadow": ["off"],
+      "prettier/prettier": ["error", { "endOfLine": "auto" }],
+      "import/prefer-default-export": "off",
+      "no-param-reassign": "off",
+      "import/extensions": [
+        2,
+        "ignorePackages",
+        {
+          "js": "never",
+          "jsx": "never",
+          "ts": "never",
+          "tsx": "never"
+        }
+      ],
+      "react/jsx-filename-extension": [
+        "warn",
+        {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        }
+      ],
+      "jsx-a11y/anchor-is-valid": [
+        "error",
+        {
+          "components": ["Link"],
+          "specialLink": ["to", "hrefLeft", "hrefRight"],
+          "aspects": ["noHref", "invalidHref", "preferButton"]
+        }
+      ],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "import/no-unresolved": "error",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn"]
+    },
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "import/extensions": [
+        "error",
+        {
+          "ts": "never",
+          "tsx": "never",
+          "js": "never",
+          "jsx": "never"
+        }
+      ],
+      "import/resolver": {
+        "babel-plugin-root-import": {
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "src"
+        },
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        },
+        "typescript": {
+          "alwaysTryTypes": true
+        }
+      }
+    }
+  }
