@@ -1,11 +1,16 @@
 @font-face {
-  font-family: pressStartFont;
-  src: url('./assets/fonts/press-start-font.ttf');
+  font-family: stretchProFont;
+  src: url('./assets/fonts/stretch-pro.regular.ttf');
+}
+
+@font-face {
+  font-family: stretchProBasicFont;
+  src: url('./assets/fonts/stretch-pro.basic.ttf');
 }
 
 body {
   margin: 0;
-  font-family: 'pressStartFont';
+  font-family: 'stretchProFont', sans-serif;
 }
 
 html,
@@ -23,7 +28,7 @@ body,
 input,
 select,
 textarea {
-  font-family: 'pressStartFont';
+  font-family: 'stretchProFont', sans-serif;
 }
 
 #root .preload {
