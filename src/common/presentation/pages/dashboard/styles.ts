@@ -1,74 +1,82 @@
 // dependencies
 import styled, { keyframes } from 'styled-components';
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
+const gradient = keyframes`
+  0% {
+    background-position: 0% 50%;
   }
 
-  to {
-    opacity: 1;
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
   }
 `;
 
 export const Container = styled.section`
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  padding: 7vw 16vw;
+
+  background-image: linear-gradient(270deg, #91eae4, #86a8e7, #7f7fd5);
+  background-size: 400% 400%;
+  animation: ${gradient} 8s ease infinite;
+`;
+
+export const Outer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  max-width: 1700px;
+
+  border-radius: 30px;
+  border: 1px solid #72707d;
+
+  overflow: hidden;
 `;
 
 export const Main = styled.main`
   position: relative;
 
-  height: 100%;
-  flex-grow: 1;
-
-  padding-top: 80px;
-
-  perspective: 100vw;
-  background: linear-gradient(45deg, #e6e2df 80%, #c2c1bd 100%);
-`;
-
-export const List = styled.ul`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 8px;
-  height: 100%;
+  padding: 20px;
 
-  perspective: 100vw;
-  list-style-type: none;
+  border-radius: 30px;
 
-  animation: ${fadeIn} ease-in 1.5s;
-`;
+  background-color: ${({ theme }) => theme.editor_background};
 
-export const ListItemContainer = styled.li`
-  position: relative;
-  width: fit-content;
+  box-shadow: rgb(51, 62, 67, 0.2) 0px 0px 25px 1px;
+  -webkit-box-shadow: 0px 0px 24px 8px rgb(51, 62, 67, 0.2);
+  overflow-y: auto;
 
-  cursor: pointer;
-
-  transform: rotate3d(0, 1, 0, 45deg);
-  transform-origin: left center;
-  transform-style: preserve-3d;
-  transition: transform 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-
-  :hover {
-    color: transparent;
-    -webkit-text-stroke: 0.5px black;
-
-    transform: rotate3d(0, 1, 0, 25deg);
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+    z-index: 99;
   }
-`;
 
-export const ListItem = styled.span`
-  text-transform: uppercase;
-  font-weight: 800;
-  font-style: normal;
-  font-stretch: ultra-expanded;
-  font-size: 7vw;
-  line-height: 0.9em;
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
 
-  transition: color 0.5s, opacity 0.3s;
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
 
-  cursor: pointer;
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `;
