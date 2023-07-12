@@ -10,11 +10,11 @@ module.exports = () => {
   const output = {
     filename: 'index.js',
     path: path.join(__dirname, 'dist'),
-    library: 'kosmos.web.components',
+    library: 'terminal-portfolio',
     libraryTarget: 'umd',
     umdNamedDefine: true,
   };
-  const entry = './src/index.ts';
+  const entry = './src/index.tsx';
 
   return {
     mode,
