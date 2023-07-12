@@ -1,16 +1,11 @@
 @font-face {
-  font-family: stretchProFont;
-  src: url('./assets/fonts/stretch-pro.regular.ttf');
-}
-
-@font-face {
-  font-family: stretchProBasicFont;
-  src: url('./assets/fonts/stretch-pro.basic.ttf');
+  font-family: SourceCodePro;
+  src: url('./assets/fonts/SourceCodePro-VariableFont_wght.ttf');
 }
 
 body {
   margin: 0;
-  font-family: 'stretchProFont', sans-serif;
+  font-family: 'SourceCodePro', monospace;
 }
 
 html,
@@ -28,7 +23,16 @@ body,
 input,
 select,
 textarea {
-  font-family: 'stretchProFont', sans-serif;
+  font-family: 'SourceCodePro', monospace;
+  font-weight: 500;
+}
+
+span {
+  font-size: 1.5rem;
+
+  @media screen and (max-width: 1920px) {
+    font-size: 1rem;
+  }
 }
 
 #root .preload {
