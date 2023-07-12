@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // app
-import { App } from './common/presentation/app'
+import { App } from './common/presentation/app';
 
 ReactDOM.render(
   <React.StrictMode>
