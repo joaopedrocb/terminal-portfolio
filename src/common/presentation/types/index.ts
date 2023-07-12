@@ -1,1 +1,2 @@
-export { DraggableObjectInterface } from './draggable-object'
+export * from './theme-interface';
+export * from './texts-interface';
