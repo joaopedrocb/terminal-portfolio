@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/terminal-portfolio/static/css/main.550c3352.css",
-    "main.js": "/terminal-portfolio/static/js/main.3339ea80.js",
-    "static/media/SourceCodePro-VariableFont_wght.ttf": "/terminal-portfolio/static/media/SourceCodePro-VariableFont_wght.9ef76af760ad69c7256d.ttf",
-    "index.html": "/terminal-portfolio/index.html",
-    "main.550c3352.css.map": "/terminal-portfolio/static/css/main.550c3352.css.map",
-    "main.3339ea80.js.map": "/terminal-portfolio/static/js/main.3339ea80.js.map"
+    "main.css": "/terminalPortfolio/static/css/main.f85e078a.css",
+    "main.js": "/terminalPortfolio/static/js/main.2d6b3800.js",
+    "static/media/SourceCodePro-VariableFont_wght.ttf": "/terminalPortfolio/static/media/SourceCodePro-VariableFont_wght.9ef76af760ad69c7256d.ttf",
+    "index.html": "/terminalPortfolio/index.html",
+    "main.f85e078a.css.map": "/terminalPortfolio/static/css/main.f85e078a.css.map",
+    "main.2d6b3800.js.map": "/terminalPortfolio/static/js/main.2d6b3800.js.map"
   },
   "entrypoints": [
-    "static/css/main.550c3352.css",
-    "static/js/main.3339ea80.js"
+    "static/css/main.f85e078a.css",
+    "static/js/main.2d6b3800.js"
   ]
 }
