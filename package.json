@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://joaopedrocb.github.io/terminal-portfolio",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -21,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,19 +67,20 @@
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-root-import": "^6.6.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
-    "babel-loader": "^8.2.5",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "babel-plugin-root-import": "^6.6.0",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.1.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "imagemin-webpack": "^5.1.1",
     "mini-css-extract-plugin": "^2.7.2",
