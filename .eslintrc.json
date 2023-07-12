@@ -30,6 +30,14 @@
       "jest"
     ],
     "rules": {
+    "prefer-destructuring": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "react/self-closing-comp": "off",
+    "react/no-unstable-nested-components": "off",
+    "arrow-body-style": "off",
+    "react/prop-types": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "react/jsx-no-constructed-context-values": "off",
     "global-require": "off",
       "no-alert": "off",
       "react/jsx-no-bind": [
@@ -84,12 +92,7 @@
           "aspects": ["noHref", "invalidHref", "preferButton"]
         }
       ],
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "devDependencies": true
-        }
-      ],
+      "import/no-extraneous-dependencies": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "import/no-unresolved": "error",

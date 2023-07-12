@@ -23,9 +23,9 @@
     "noUnusedLocals": false, // Report errors on unused locals.
     "noUnusedParameters": false, // Report errors on unused parameters
     "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export. This does not affect code emit, just typechecking
-    "baseUrl": "./",
+    "baseUrl": "./", // all paths are relative to the baseUrl
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": [ "./src/*"]
     },
     "plugins": [
       {
